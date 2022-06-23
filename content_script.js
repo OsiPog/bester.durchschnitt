@@ -2,14 +2,16 @@ function updateAverage() {
 	setTimeout(function() {
 		// Getting all subject divs
 		let all_subject_divs = document.querySelectorAll("div.card-body>div");
-		console.log(all_subject_divs);
+		
+		let overall_average = 0;
+		let overall_av_len = 0;
+		
 		for (let subject_div of all_subject_divs) {
 			
 			if (subject_div.querySelector("p")) continue; // This <p> element will only be present if the subject has no marks yet.
 
 			let subject_label = subject_div.querySelector("h2");
 			let mark_type_td_list = subject_div.querySelectorAll("tr>td");
-			console.log(mark_type_td_list);
 			
 			let average = 0;
 			// Only going through the first two because there should be only two types of marks (exam, others).
@@ -17,9 +19,8 @@ function updateAverage() {
 			for (let i=0;i<len;i++) {
 				let half_average = 0;
 				let marks = mark_type_td_list[i].querySelectorAll("div>span");
-				console.log(marks);
+
 				for (let mark of marks) {
-					console.log(mark);
 					half_average += parseInt(mark.innerHTML);
 				}
 				half_average /= marks.length;
@@ -35,8 +36,24 @@ function updateAverage() {
 				average_span.setAttribute("bs-durchschnitt", "");
 			}
 			average_span.innerHTML = "∅" + average;
+			
+			overall_av_len += 1;
+			overall_average += parseInt(average); 
 		}
-	}, 1000);
+		
+		// putting the overall average next to the half year text
+		overall_average = (overall_average/overall_av_len).toFixed(2);
+		
+		let halfyear_selected = document.querySelector("nav>a.active")
+		
+		let overall_average_span = halfyear_selected.querySelector("span[bs-durchschnitt]"); 
+		if (!overall_average_span) {
+			overall_average_span = document.createElement("span");
+			halfyear_selected.appendChild(overall_average_span);
+			overall_average_span.setAttribute("bs-durchschnitt", "");
+		}
+		overall_average_span.innerHTML = "∅" + overall_average;
+	}, 500);
 }
 
 function clickedOnNoten() {
@@ -61,7 +78,6 @@ function findNotenLink() {
 			break;
 		}
 	}
-	console.log(noten_link);
 	noten_link.addEventListener("click", clickedOnNoten);
 }
 
@@ -73,4 +89,3 @@ setTimeout(findNotenLink, 500);
 if (window.location.href.includes("grades")) { 
 	setTimeout(clickedOnNoten, 500);
 }
-

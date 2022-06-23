@@ -1,11 +1,11 @@
 {
 	"manifest_version": 2,
 	"name": "BSdurchschnitt",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	
 	"content_scripts": [
 		{
-			"matches": ["https://beste.schule/students/*"],
+			"matches": ["https://beste.schule/*"],
 			"js": ["/content_script.js"]
 		}
 	],

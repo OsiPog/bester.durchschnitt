@@ -1,3 +1,7 @@
+function round(num, digits=0) {
+	return Math.round(num * 10 ** digits)/(10 ** digits);
+}
+
 function updateAverage() {
 	setTimeout(function() {
 		// Getting all subject divs
@@ -27,7 +31,7 @@ function updateAverage() {
 
 				average += half_average;
 			}
-			average = (average/len).toFixed(2); // Rounding up so that a periodic decimal doesn't litter the screen.
+			average /= len;
 			
 			let average_span = subject_label.querySelector("span[bs-durchschnitt]"); 
 			if (!average_span) {
@@ -35,14 +39,14 @@ function updateAverage() {
 				subject_label.appendChild(average_span);
 				average_span.setAttribute("bs-durchschnitt", "");
 			}
-			average_span.innerHTML = "∅" + average;
+			average_span.innerHTML = "∅" + average.toFixed(2);
 			
 			overall_av_len += 1;
-			overall_average += parseInt(average); 
+			overall_average += round(average); 
 		}
 		
 		// putting the overall average next to the half year text
-		overall_average = (overall_average/overall_av_len).toFixed(2);
+		overall_average = overall_average/overall_av_len;
 		
 		let halfyear_selected = document.querySelector("nav>a.active")
 		
@@ -52,40 +56,17 @@ function updateAverage() {
 			halfyear_selected.appendChild(overall_average_span);
 			overall_average_span.setAttribute("bs-durchschnitt", "");
 		}
-		overall_average_span.innerHTML = "∅" + overall_average;
+		overall_average_span.innerHTML = "∅" + overall_average.toFixed(2);
 	}, 500);
 }
 
-function clickedOnNoten() {
-	// Now that the page with all marks in opened the averages have to be updated
-	updateAverage();
-	
-	all_halfyear_links = document.querySelectorAll("div.card-body>nav>a");
-	for (let halfyear_link of all_halfyear_links) {
-		halfyear_link.addEventListener("click", updateAverage);
+function clickedOnBody() {
+	if (window.location.href.includes("grades")) { 
+		// The timeout is set because the site has an internal loader.
+		setTimeout(updateAverage, 500);
 	}
-	console.log("Clicked on 'Noten'");
-}
-
-function findNotenLink() {
-	// Finding the link which will bring the user to site with all marks displayed
-	// The script is assuming that it is only executed on the right site (set in the manifest)
-	let all_nav_links = document.querySelectorAll("li.nav-item>a");
-	let noten_link;
-	for (let nav_link of all_nav_links) {
-		if (nav_link.innerHTML.includes("Noten")) {
-			noten_link = nav_link;
-			break;
-		}
-	}
-	noten_link.addEventListener("click", clickedOnNoten);
 }
 
 
-// The timeouts are set because the site has an internal loader which has to be given time.
-setTimeout(findNotenLink, 500);
 
-// For the case that the user is already on the right site
-if (window.location.href.includes("grades")) { 
-	setTimeout(clickedOnNoten, 500);
-}
+document.body.addEventListener("click", clickedOnBody)

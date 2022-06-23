@@ -1,4 +1,4 @@
-function onRightURL() {
+function updateAverage() {
 	setTimeout(function() {
 		// Getting all subject divs
 		let all_subject_divs = document.querySelectorAll("div.card-body>div");
@@ -27,20 +27,50 @@ function onRightURL() {
 				average += half_average;
 			}
 			average = (average/len).toFixed(2); // Rounding up so that a periodic decimal doesn't litter the screen.
-			subject_label.innerHTML += "∅" + average;
+			
+			let average_span = subject_label.querySelector("span[bs-durchschnitt]"); 
+			if (!average_span) {
+				average_span = document.createElement("span");
+				subject_label.appendChild(average_span);
+				average_span.setAttribute("bs-durchschnitt", "");
+			}
+			average_span.innerHTML = "∅" + average;
 		}
-	}, 1500);
+	}, 1000);
 }
 
-function checkRightURL() {
-		
-	let current_url = window.location.href;
-
-	let right_url = (current_url.includes("https://beste.schule") && current_url.includes("grades"))
-	console.log(right_url);
-	if (right_url) onRightURL();
+function clickedOnNoten() {
+	// Now that the page with all marks in opened the averages have to be updated
+	updateAverage();
+	
+	all_halfyear_links = document.querySelectorAll("div.card-body>nav>a");
+	for (let halfyear_link of all_halfyear_links) {
+		halfyear_link.addEventListener("click", updateAverage);
+	}
+	console.log("Clicked on 'Noten'");
 }
 
-setTimeout(checkRightURL, 0);
+function findNotenLink() {
+	// Finding the link which will bring the user to site with all marks displayed
+	// The script is assuming that it is only executed on the right site (set in the manifest)
+	let all_nav_links = document.querySelectorAll("li.nav-item>a");
+	let noten_link;
+	for (let nav_link of all_nav_links) {
+		if (nav_link.innerHTML.includes("Noten")) {
+			noten_link = nav_link;
+			break;
+		}
+	}
+	console.log(noten_link);
+	noten_link.addEventListener("click", clickedOnNoten);
+}
 
+
+// The timeouts are set because the site has an internal loader which has to be given time.
+setTimeout(findNotenLink, 500);
+
+// For the case that the user is already on the right site
+if (window.location.href.includes("grades")) { 
+	setTimeout(clickedOnNoten, 500);
+}
 

@@ -22,5 +22,5 @@ Das Add-On wurde in Firefox und Chromium-basierenden Browsern getestet und ist i
 
 - **Firefox:** https://addons.mozilla.org/de/firefox/addon/bester-durchschnitt/
 
-- **Chromium: **(Coming Soon)
+- **Chromium:** (Coming Soon)
   Während der Download für die Chromium Version noch nicht verfügbar ist kann man den Source Code des Add-Ons hier herunterladen (dieses Repository) und über den Entwicklermodus in den Erweiterungseinstellungen mit dem Button "Entpackte Erweiterung laden" das Add-On manuell laden.

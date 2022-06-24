@@ -1,7 +1,7 @@
 {
-	"manifest_version": 2,
-	"name": "BSdurchschnitt",
-	"version": "1.0.1",
+	"manifest_version": 3,
+	"name": "bester.durchschnitt",
+	"version": "1.0.11",
 	
 	"content_scripts": [
 		{
@@ -10,16 +10,12 @@
 		}
 	],
 	
-	"browser_action": {
+	"action": {
 		"browser_style": true,
 		"default_icon":{
 			"48": "/icon.png"
 		},
-		"default_title": "BSdurchschnitt",
+		"default_title": "bester.durchschnitt",
 		"default_popup": "/popup.html"
-	},
-	
-	"permissions": [
-		"storage"
-	]
+	}
 }

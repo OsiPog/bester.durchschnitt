@@ -184,9 +184,9 @@ function createEventListeners() {
 }
 
 // Add click event listeners
-setTimeout(createEventListeners, 1000);
+setTimeout(createEventListeners, 1500);
 
 // This will be execute after a site loaded.
 // This exists for the case that the current site is already the right one and no click has to 
 // be made
-clicked(1000);
+clicked(1500);

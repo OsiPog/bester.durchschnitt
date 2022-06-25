@@ -97,7 +97,8 @@ function updateAverage(delay) {
 				let mark_elements = mark_lists[i].querySelectorAll("div>span");
 
 				for (let mark_element of mark_elements) {
-					let mark = Number(mark_element.innerHTML)
+					// parseInt() and not Number() because it could be e.g. "1-"
+					let mark = parseInt(mark_element.innerHTML)
 					
 					// Sometimes tests which haven't been attended are marked as "-".
 					console.log(mark_element);

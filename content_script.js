@@ -176,15 +176,17 @@ function clickedOnCard() {
 function createEventListeners() {
 	let sidebar = document.querySelector("div.sidebar-sticky");
 	sidebar.addEventListener("click", clickedOnBody);
-	let view_button = document.querySelector("div#btn-radios-view");
-	view_button.addEventListener("click", clickedOnBody);
-
-	let card = document.querySelector("div.card-body");
-	card.addEventListener("click", clickedOnCard);
+	
+	if (window.location.href.includes("grades")) { 
+		let view_button = document.querySelector("div#btn-radios-view");
+		view_button.addEventListener("click", clickedOnBody);
+		let card = document.querySelector("div.card-body");
+		card.addEventListener("click", clickedOnCard);
+	}
 }
 
 // Add click event listeners
-setTimeout(createEventListeners, 1500);
+setTimeout(createEventListeners, 1000);
 
 // This will be execute after a site loaded.
 // This exists for the case that the current site is already the right one and no click has to 

@@ -15,10 +15,17 @@ Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notensei
 - Auswahl für jede Notenspalte: Klassenarbeit/Klausur, Sonstige Note oder ignorieren
   - Es wird automatisch erkannt, was eine KA/Klausur ist. Falls das nicht der Fall ist, lasst es mich wissen (osibluber@protonmail.com) und ich füge das Wort in die Liste hinzu.
 
-
 **Geplante Funktionen**
 
 - benutzerdefinierte Auswahl der Wichtungen (im Moment 50/50 für KA/Klausur und Sonstige)
+
+**bekannte Bugs**
+
+- Noten mit einem "+" oder "-" Indikator werden nicht gewertet
+
+
+
+
 
 ![](https://i.imgur.com/pKfKZKk.png)
 

@@ -4,6 +4,8 @@
 
 **Ein Add-On für https://beste.schule/**
 
+![](https://i.imgur.com/pKfKZKk.png)
+
 ## Was macht das Add-On?
 
 Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notenseite von https://beste.schule/ an. Es berechnet außerdem noch den Gesamtdurchschnitt des Halbjahres mit den gerundeten Zeugnisnoten der einzelnen Fächer. Leider wird die Ansichtsmethode "Details" nicht unterstützt.
@@ -24,10 +26,6 @@ Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notensei
 - Noten mit einem "+" oder "-" Indikator werden nicht gewertet
 
 
-
-
-
-![](https://i.imgur.com/pKfKZKk.png)
 
 
 

@@ -1,4 +1,4 @@
-*This repo is German (except the code) as the website this extension is made for.*
+*This repo is written in German (except the code) as the website this extension is made for.*
 
 # bester.durchschnitt
 

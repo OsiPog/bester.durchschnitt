@@ -39,5 +39,5 @@ Während der Download für die Chromium Version noch nicht verfügbar ist kann m
 
 ## Dankesagungen
 
-- :heart: Danke an **Iqel** zur Bereitstellung seines beste.schule Accounts, da dieser viel mehr Edge-cases geboten hatte als mein eigener.
+- :heart: Danke an **Iqel**, für die Bereitstellung seines beste.schule Accounts, da dieser viel mehr Edge-cases geboten hatte als mein eigener.
 

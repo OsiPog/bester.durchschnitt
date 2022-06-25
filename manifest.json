@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "bester.durchschnitt",
-	"version": "1.0.22",
+	"version": "1.0.23",
 	
 	"content_scripts": [
 		{
@@ -16,7 +16,7 @@
 	"action": {
 		"browser_style": true,
 		"default_icon":{
-			"48": "/icon.png"
+			"48": "/icon48.png"
 		},
 		"default_title": "bester.durchschnitt",
 		"default_popup": "/popup.html"

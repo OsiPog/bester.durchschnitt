@@ -15,7 +15,7 @@ Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notensei
 - Durchschnitt für jedes Fach
 - Gesamtdurchschnitt eines Halbjahres
 - Auswahl für jede Notenspalte: Klassenarbeit/Klausur, Sonstige Note oder ignorieren
-  - Es wird automatisch erkannt, was eine KA/Klausur ist. Falls das nicht der Fall ist, lasst es mich wissen (osibluber@protonmail.com) und ich füge das Wort in die Liste hinzu.
+  - Es wird automatisch erkannt, was eine KA/Klausur ist. Falls das nicht der Fall ist, lasst es mich wissen (Schreibt mir eine Email: osibluber@protonmail.com oder öffnet hier ein Issue)
 
 **Geplante Funktionen**
 

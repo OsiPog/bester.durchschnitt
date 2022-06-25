@@ -171,7 +171,7 @@ function clicked(delay = 0) {
 }
 
 function clickedOnBody() {
-	clicked(500);
+	clicked(1000);
 }
 
 function clickedOnCard() {
@@ -179,6 +179,7 @@ function clickedOnCard() {
 }
 
 function createEventListeners() {
+	console.log("added click listeners");
 	let sidebar = document.querySelector("div.sidebar-sticky");
 	sidebar.addEventListener("click", clickedOnBody);
 	
@@ -191,7 +192,7 @@ function createEventListeners() {
 }
 
 // Add click event listeners
-setTimeout(createEventListeners, 1000);
+setTimeout(createEventListeners, 800);
 
 // This will be execute after a site loaded.
 // This exists for the case that the current site is already the right one and no click has to 

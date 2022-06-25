@@ -20,6 +20,8 @@ Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notensei
 
 - benutzerdefinierte Auswahl der Wichtungen (im Moment 50/50 für KA/Klausur und Sonstige)
 
+**Demonstration**
+
 ![](https://i.imgur.com/pKfKZKk.png)
 
 

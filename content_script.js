@@ -1,5 +1,16 @@
+// This is not a very elegant way to figure out if a column is for exam marks but as
+// I don't have an API nor does the Website provide any information about it.
+let EXAM_STRINGS = ["KL", "Klausur", "KA", "Kl", "Klassenarbeit"];
+
 function round(num, digits=0) {
 	return Math.round(num * 10 ** digits)/(10 ** digits);
+}
+
+function checkForExamString(string) {
+	for (let exam_string of EXAM_STRINGS) {
+		if (string.includes(exam_string)) return true;
+	}
+	return false;
 }
 
 function updateAverage() {
@@ -8,11 +19,8 @@ function updateAverage() {
 		// Getting the view-type of the marks as this has an impact on how to get the marks
 		// from the website.
 
-		// This is the checkbox radio element for the view type "overview".
-		let overview = document.querySelector("div.custom-control>input").checked;
-		
-		// Temporarily until the view type "Details" is finished
-		if (!overview) return;
+		// If the checkbox "overview" isn't checked, return because it isn't supported.
+		if (!document.querySelector("div.custom-control>input").checked) return;
 		
 		// Getting all subject divs
 		let all_subject_divs = document.querySelectorAll("div.card-body>div");
@@ -26,28 +34,54 @@ function updateAverage() {
 			if (subject_div.querySelector("p")) continue; 
 
 			let subject_label = subject_div.querySelector("h2");
+			console.log(subject_label.innerHTML);
+			let headers = subject_div.querySelectorAll("tr>th");
+			let mark_lists = subject_div.querySelectorAll("tr>td");
 			
-			let mark_type_list = subject_div.querySelectorAll("tr>td");
-			
-			let average = 0;
-			
-			// Only going through the first two because there should be only two types of 
-			// marks (exam, others).
-			let len = Math.min(2, mark_type_list.length-1);
-			for (let i=0;i<len;i++) {
-				let half_average = 0;
+			createCheckboxes();
 
-				let marks = mark_type_list[i].querySelectorAll("div>span");
+			let average_exams = 0;
+			let exams_amount = 0;
+			
+			let average_others = 0;
+			let others_amount = 0;
+			
+			
+			for (let i = 0;i < headers.length-1; i++) { // The last column is empty
 				
-				for (let mark of marks) {
+				let mark_elements = mark_lists[i].querySelectorAll("div>span");
+				
+				let is_exams = checkForExamString(headers[i].innerHTML);
+				
+				console.log(i);
+				console.log(is_exams);
+				
+				for (let mark_element of mark_elements) {
+					let mark = Number(mark_element.innerHTML)
 					
-					half_average += parseInt(mark.innerHTML);
+					// Sometimes tests which haven't been attended are marked as "-".
+					if (Number.isNaN(mark)) continue;
+					
+					if (is_exams) {
+						average_exams += mark;
+						exams_amount++;
+					}
+					else {
+						average_others += mark;
+						others_amount++;
+					}
 				}
-				half_average /= marks.length;
-
-				average += half_average;
 			}
-			average /= len;
+			let average;
+			
+			average_others /= others_amount;
+			if (exams_amount !== 0) {
+				average_exams /= exams_amount;
+				average = (average_exams + average_others)/2
+			}
+			else {
+				average = average_others;
+			}
 			
 			let average_span = subject_label.querySelector("span[bs-durchschnitt]"); 
 			if (!average_span) {

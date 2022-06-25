@@ -1,11 +1,14 @@
 {
 	"manifest_version": 2,
 	"name": "bester.durchschnitt",
-	"version": "1.0.11",
+	"version": "1.0.2",
 	
 	"content_scripts": [
 		{
-			"matches": ["https://beste.schule/*"],
+			"matches": [
+				"https://beste.schule/*",
+				"https://einfache.schule/*"
+			],
 			"js": ["/content_script.js"]
 		}
 	],

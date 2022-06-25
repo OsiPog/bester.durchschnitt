@@ -156,7 +156,12 @@ function updateAverage(delay) {
 			halfyear_selected.appendChild(overall_average_span);
 			overall_average_span.setAttribute("bs-durchschnitt", "");
 		}
-		overall_average_span.innerHTML = "∅" + overall_average.toFixed(2);
+		if (!Number.isNaN(overall_average)) {
+			overall_average_span.innerHTML = "∅" + overall_average.toFixed(2);
+		} else {
+			halfyear_selected.removeChild(overall_average_span);
+		}
+		
 	}, delay);
 }
 function clicked(delay = 0) {

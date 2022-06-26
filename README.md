@@ -4,6 +4,8 @@
 
 **Ein Add-On für https://beste.schule/**
 
+*Dieses Add-On ist nicht offiziell und steht in keinem direkten Kontakt zu beste.schule.*
+
 ![](https://i.imgur.com/pKfKZKk.png)
 
 ## Was macht das Add-On?

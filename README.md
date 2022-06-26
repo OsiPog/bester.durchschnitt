@@ -17,12 +17,20 @@ Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notensei
 - Auswahl für jede Notenspalte: Klassenarbeit/Klausur, Sonstige Note oder ignorieren
   - Es wird automatisch erkannt, was eine KA/Klausur ist. Falls das nicht der Fall ist, lasst es mich wissen (Schreibt mir eine Email: osibluber@protonmail.com oder öffnet hier ein Issue)
 
+
+
 **Geplante Funktionen**
 
+- Auswahl ob bei "Komma 5" mathematisch auf- oder abgerundet werden soll
+
 - benutzerdefinierte Auswahl der Wichtungen (im Moment 50/50 für KA/Klausur und Sonstige)
+- temporäres hinzufügen und entfernen von Noten um zu sehen, wie sich der Durchschnitt ändert
+
+
 
 **bekannte Bugs**
-[momentan keine]
+
+- manchmal lädt das Add-On nicht und man muss die Seite manuell neu laden (F5)
 
 
 

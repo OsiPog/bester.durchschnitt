@@ -5,6 +5,8 @@ let EXAM_STRINGS = ["KL", "Klausur", "KA", "Kl", "Klassenarbeit", "Ka"];
 
 let SELECT_OPTIONS = ["Sonstige", "KA/Klausur", "ignorieren"];
 
+let _last_quick_update = 0;
+
 function round(num, digits=0) {
 	return Math.round(num * 10 ** digits)/(10 ** digits);
 }
@@ -16,10 +18,36 @@ function checkForExamString(string) {
 	return false;
 }
 
+function updateAverageSpan(parent_element, average) {
+	let average_span = parent_element.querySelector("span[bs-durchschnitt]"); 
+	if (!average_span) {
+		average_span = document.createElement("span");
+		average_span.setAttribute("bs-durchschnitt", "");
+		parent_element.appendChild(average_span);
+	}
+	if (!Number.isNaN(average)) {
+		average_span.innerHTML = "∅" + average.toFixed(2);
+	}
+	else {
+		parent_element.removeChild(average_span);
+	}
+}
+
 function updateAverage(delay) {
-	console.log("update");
 	// The timeout is set because the site has an internal loader.
 	setTimeout(function() {
+		
+		// To differenciate if it got clicked on the body or on the card.
+		let time_now = new Date().getTime();
+		if (delay <= 50) {
+			_last_quick_update = time_now;
+		}
+		// It shouldn't update twice if it got clicked on the body and on the card.
+		else if (time_now - _last_quick_update <= 1000) {
+			return;
+		}
+		
+		
 		// Getting the view-type of the marks as this has an impact on how to get the marks
 		// from the website.
 
@@ -38,7 +66,6 @@ function updateAverage(delay) {
 			if (subject_div.querySelector("p")) continue; 
 
 			let subject_label = subject_div.querySelector("h2");
-			console.log(subject_label.innerHTML);
 	
 			let mark_lists = subject_div.querySelectorAll("tr>td");
 			let headers = subject_div.querySelectorAll("tr>th");
@@ -54,6 +81,9 @@ function updateAverage(delay) {
 					select.setAttribute("bs-durchschnitt","");
 					select.setAttribute("style", "font-size:0.85em");
 					
+					// "0" - "other marks"
+					// "1" - "exam marks"
+					// "2" - "ignore"
 					for(let i = 0;i < SELECT_OPTIONS.length; i++) {
 						let opt = document.createElement("option");
 						opt.setAttribute("value", String(i));
@@ -61,6 +91,8 @@ function updateAverage(delay) {
 						select.appendChild(opt);
 					}
 					
+					// If the header string contains an exam string change the
+					// dropdown menu to exam marks (user usability).
 					if (checkForExamString(headers[i].innerHTML)) {
 						select.value = "1";
 					}
@@ -72,7 +104,8 @@ function updateAverage(delay) {
 				// Keeping track of the values for the calculations.
 				select_states.push(select.value);
 				
-				// If the dropdown menu is set to "ignore" make it visible.
+				// If the dropdown menu is set to "ignore" make it visible to the user.
+				// (column greyed out)
 				let style = "";
 				if (select.value === "2") {
 					style = "color:#A0A0A0 !important";
@@ -88,11 +121,10 @@ function updateAverage(delay) {
 			
 			let average_others = 0;
 			let others_amount = 0;
-			console.log(select_states);
 			
-			for (let i = 0;i < headers.length; i++) { // The last column is empty
+			for (let i = 0;i < headers.length-1; i++) { // The last column is empty
 				
-				if (select_states[i] === "2") continue;
+				if (select_states[i] === "2") continue; // "2" is "ignore"
 				
 				let mark_elements = mark_lists[i].querySelectorAll("div>span");
 
@@ -101,9 +133,10 @@ function updateAverage(delay) {
 					let mark = parseInt(mark_element.innerHTML)
 					
 					// Sometimes tests which haven't been attended are marked as "-".
-					console.log(mark_element);
+					// Thus, parseInt() will return a NaN.
 					if (Number.isNaN(mark)) continue;
 					
+					// "1" is "exam marks"
 					if (select_states[i] === "1") {
 						average_exams += mark;
 						exams_amount++;
@@ -113,10 +146,10 @@ function updateAverage(delay) {
 						others_amount++;
 					}
 					
-					console.log(average_exams, average_others);
 				}
 			}
 			let average = 0;
+
 			if (others_amount !== 0) {
 				average_others /= others_amount;
 				average += average_others;
@@ -128,21 +161,14 @@ function updateAverage(delay) {
 			
 			average /= (others_amount !== 0) + (exams_amount !== 0); // true = 1, false = 0
 			
-			let average_span = subject_label.querySelector("span[bs-durchschnitt]"); 
-			if (!average_span) {
-				average_span = document.createElement("span");
-				subject_label.appendChild(average_span);
-				average_span.setAttribute("bs-durchschnitt", "");
-			}
-			
 			if (!Number.isNaN(average)) {
-				average_span.innerHTML = "∅" + average.toFixed(2);
 				overall_average += round(average);
 				overall_av_len++;
 			}
-			else {
-				subject_label.removeChild(average_span);
-			}
+			
+			updateAverageSpan(subject_label, average);
+			
+			
 		}
 		
 		// putting the overall average next to the half year text
@@ -150,17 +176,7 @@ function updateAverage(delay) {
 		
 		let halfyear_selected = document.querySelector("nav>a.active");
 		
-		let overall_average_span = halfyear_selected.querySelector("span[bs-durchschnitt]"); 
-		if (!overall_average_span) {
-			overall_average_span = document.createElement("span");
-			halfyear_selected.appendChild(overall_average_span);
-			overall_average_span.setAttribute("bs-durchschnitt", "");
-		}
-		if (!Number.isNaN(overall_average)) {
-			overall_average_span.innerHTML = "∅" + overall_average.toFixed(2);
-		} else {
-			halfyear_selected.removeChild(overall_average_span);
-		}
+		updateAverageSpan(halfyear_selected, overall_average);
 		
 	}, delay);
 }
@@ -170,28 +186,38 @@ function clicked(delay = 0) {
 	}
 }
 
+// To make the interaction really seem flawlessly there has to be an event listener
+// on the body and on the card (the div the marks are located in). The update delay on
+// body needs to be quite long so that the website has time to load its content. Yet
+// if the user clicks on the card the response should come quickly so that it feels
+// nice and responive. But if the user clicks on the card, they automatically also
+// click on the body. This is why this not elegant solution has to be used at the top
+// of updateAverage(delay).
 function clickedOnBody() {
-	clicked(500);
+	clicked(1000);
+	let card = document.querySelector("div.card-body");
+	
+	if (!card) {
+		createCardEventListener();
+	}
 }
 
 function clickedOnCard() {
 	clicked(10);
 }
 
-function createEventListeners() {
-	let sidebar = document.querySelector("div.sidebar-sticky");
-	sidebar.addEventListener("click", clickedOnBody);
-	
-	if (window.location.href.includes("grades")) { 
-		let view_button = document.querySelector("div#btn-radios-view");
-		view_button.addEventListener("click", clickedOnBody);
-		let card = document.querySelector("div.card-body");
-		card.addEventListener("click", clickedOnCard);
-	}
+function createCardEventListener() {
+	setTimeout(function() {
+		if (window.location.href.includes("grades")) {
+			let card = document.querySelector("div.card-body");
+			card.addEventListener("click", clickedOnCard);
+		}
+	}, 1000)
 }
 
 // Add click event listeners
-setTimeout(createEventListeners, 1000);
+document.body.addEventListener("click", clickedOnBody);
+createCardEventListener();
 
 // This will be execute after a site loaded.
 // This exists for the case that the current site is already the right one and no click has to 

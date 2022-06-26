@@ -30,7 +30,7 @@ Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notensei
 
 **bekannte Bugs**
 
-- manchmal lädt das Add-On nicht und man muss die Seite manuell neu laden (F5)
+[momentan keine]
 
 
 

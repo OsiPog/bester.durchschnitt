@@ -18,6 +18,21 @@ function checkForExamString(string) {
 	return false;
 }
 
+function updateAverageSpan(parent_element, average) {
+	let average_span = parent_element.querySelector("span[bs-durchschnitt]"); 
+	if (!average_span) {
+		average_span = document.createElement("span");
+		average_span.setAttribute("bs-durchschnitt", "");
+		parent_element.appendChild(average_span);
+	}
+	if (!Number.isNaN(average)) {
+		average_span.innerHTML = "∅" + average.toFixed(2);
+	}
+	else {
+		parent_element.removeChild(average_span);
+	}
+}
+
 function updateAverage(delay) {
 	// The timeout is set because the site has an internal loader.
 	setTimeout(function() {
@@ -51,7 +66,6 @@ function updateAverage(delay) {
 			if (subject_div.querySelector("p")) continue; 
 
 			let subject_label = subject_div.querySelector("h2");
-			console.log(subject_label.innerHTML);
 	
 			let mark_lists = subject_div.querySelectorAll("tr>td");
 			let headers = subject_div.querySelectorAll("tr>th");
@@ -147,21 +161,14 @@ function updateAverage(delay) {
 			
 			average /= (others_amount !== 0) + (exams_amount !== 0); // true = 1, false = 0
 			
-			let average_span = subject_label.querySelector("span[bs-durchschnitt]"); 
-			if (!average_span) {
-				average_span = document.createElement("span");
-				subject_label.appendChild(average_span);
-				average_span.setAttribute("bs-durchschnitt", "");
-			}
-			
 			if (!Number.isNaN(average)) {
-				average_span.innerHTML = "∅" + average.toFixed(2);
 				overall_average += round(average);
 				overall_av_len++;
 			}
-			else {
-				subject_label.removeChild(average_span);
-			}
+			
+			updateAverageSpan(subject_label, average);
+			
+			
 		}
 		
 		// putting the overall average next to the half year text
@@ -169,17 +176,7 @@ function updateAverage(delay) {
 		
 		let halfyear_selected = document.querySelector("nav>a.active");
 		
-		let overall_average_span = halfyear_selected.querySelector("span[bs-durchschnitt]"); 
-		if (!overall_average_span) {
-			overall_average_span = document.createElement("span");
-			halfyear_selected.appendChild(overall_average_span);
-			overall_average_span.setAttribute("bs-durchschnitt", "");
-		}
-		if (!Number.isNaN(overall_average)) {
-			overall_average_span.innerHTML = "∅" + overall_average.toFixed(2);
-		} else {
-			halfyear_selected.removeChild(overall_average_span);
-		}
+		updateAverageSpan(halfyear_selected, overall_average);
 		
 	}, delay);
 }
@@ -198,27 +195,29 @@ function clicked(delay = 0) {
 // of updateAverage(delay).
 function clickedOnBody() {
 	clicked(1000);
+	let card = document.querySelector("div.card-body");
+	
+	if (!card) {
+		createCardEventListener();
+	}
 }
 
 function clickedOnCard() {
 	clicked(10);
 }
 
-function createEventListeners() {
-	document.body.addEventListener("click", clickedOnBody);
-	
-	// Delaying this so that the site has time to load the mark view
+function createCardEventListener() {
 	setTimeout(function() {
-		if (window.location.href.includes("grades")) { 
+		if (window.location.href.includes("grades")) {
 			let card = document.querySelector("div.card-body");
 			card.addEventListener("click", clickedOnCard);
 		}
-	}, 1000);
-
+	}, 1000)
 }
 
 // Add click event listeners
-createEventListeners();
+document.body.addEventListener("click", clickedOnBody);
+createCardEventListener();
 
 // This will be execute after a site loaded.
 // This exists for the case that the current site is already the right one and no click has to 

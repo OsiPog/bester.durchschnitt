@@ -18,7 +18,7 @@ function checkForExamString(string) {
 	return false;
 }
 
-function updateTextSpan(parent_element, average) {
+function textSpan(parent_element, average) {
 	let average_span = parent_element.querySelector("span[bs-durchschnitt]"); 
 	if (!average_span) {
 		average_span = document.createElement("span");
@@ -33,7 +33,7 @@ function updateTextSpan(parent_element, average) {
 	}
 }
 
-function updateDropdownMenu(header, mark_list) {
+function dropdownMenu(header, mark_list) {
 	let select = header.querySelector("select[bs-durchschnitt]");
 	if (!select) {
 		select = document.createElement("select");
@@ -73,6 +73,10 @@ function updateDropdownMenu(header, mark_list) {
 	
 	header.setAttribute("style",style);
 	mark_list.setAttribute("style",style);
+}
+
+function ratioSlider(empty_header) {
+	
 }
 
 function updateAverage(delay) {
@@ -125,6 +129,9 @@ function updateAverage(delay) {
 			for (let i = 0;i < headers.length-1; i++) {
 				dropdownMenu(headers[i], mark_lists[i]);
 			}
+			
+			// Creating the slider to determine the ratio of exam and others
+			
 
 			let average_exams = 0;
 			let exams_amount = 0;
@@ -176,7 +183,7 @@ function updateAverage(delay) {
 				overall_av_len++;
 			}
 			
-			updateTextSpan(subject_label, average);
+			textSpan(subject_label, average);
 			
 			
 		}
@@ -186,7 +193,7 @@ function updateAverage(delay) {
 		
 		let halfyear_selected = document.querySelector("nav>a.active");
 		
-		updateTextSpan(halfyear_selected, overall_average);
+		textSpan(halfyear_selected, overall_average);
 		
 	}, delay);
 }

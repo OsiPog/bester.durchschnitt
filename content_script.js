@@ -76,7 +76,18 @@ function dropdownMenu(header, mark_list) {
 }
 
 function ratioSlider(empty_header) {
+	let slider = empty_header.querySelector("input[bs-durchschnitt]");
+	if (!slider) {
+		slider = document.createElement("input");
+		slider.setAttribute("bs-durchschnitt", "");
+		
+		slider.setAttribute("type", "range");
+		slider.setAttribute("min", "0");
+		slider.setAttribute("max", "100");
+		slider.setAttribute("value", "50");
+	}
 	
+	return slider.value;
 }
 
 function updateAverage(delay) {
@@ -131,7 +142,7 @@ function updateAverage(delay) {
 			}
 			
 			// Creating the slider to determine the ratio of exam and others
-			
+			let weight_ratio = ratioSlider(headers[headers.length-1]);
 
 			let average_exams = 0;
 			let exams_amount = 0;
@@ -199,7 +210,14 @@ function updateAverage(delay) {
 }
 function clicked(delay = 0) {
 	if (window.location.href.includes("grades")) { 
-		updateAverage(delay);
+		try { //for debugging purposes
+			updateAverage(delay);
+		}
+		catch (e) {
+			console.log("Error", e.stack);
+			console.log("Error", e.name);
+			console.log("Error", e.message);
+		}
 	}
 }
 

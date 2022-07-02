@@ -26,7 +26,7 @@ function updateAverageSpan(parent_element, average) {
 		parent_element.appendChild(average_span);
 	}
 	if (!Number.isNaN(average)) {
-		average_span.innerHTML = "∅" + average.toFixed(2);
+		average_span.innerText = "∅" + average.toFixed(2);
 	}
 	else {
 		parent_element.removeChild(average_span);
@@ -97,7 +97,7 @@ function updateAverage(delay) {
 						select.value = "1";
 					}
 					
-					headers[i].innerHTML += "<br>";
+					headers[i].innerHTML += "<br>"; // Using inner HTML because <br> is an HTML tag.
 					headers[i].appendChild(select);
 				}
 				

@@ -33,48 +33,6 @@ function textSpan(parent_element, average) {
 	}
 }
 
-function dropdownMenu(header, mark_list) {
-	let select = header.querySelector("select[bs-durchschnitt]");
-	if (!select) {
-		select = document.createElement("select");
-		select.setAttribute("name", "mark-type");
-		select.setAttribute("bs-durchschnitt","");
-		select.setAttribute("style", "font-size:0.85em");
-		
-		// "0" - "other marks"
-		// "1" - "exam marks"
-		// "2" - "ignore"
-		for(let i = 0;i < SELECT_OPTIONS.length; i++) {
-			let opt = document.createElement("option");
-			opt.setAttribute("value", String(i));
-			opt.innerHTML = SELECT_OPTIONS[i];
-			select.appendChild(opt);
-		}
-		
-		// If the header string contains an exam string change the
-		// dropdown menu to exam marks (user usability).
-		if (checkForExamString(header.innerHTML)) {
-			select.value = "1";
-		}
-		
-		header.innerHTML += "<br>"; // Using innerHTML because <br> is an HTML tag.
-		header.appendChild(select);
-	}
-	
-	// Keeping track of the values for the calculations.
-	select_states.push(select.value);
-	
-	// If the dropdown menu is set to "ignore" make it visible to the user.
-	// (column greyed out)
-	let style = "";
-	if (select.value === "2") {
-		style = "color:#A0A0A0 !important";
-	}
-	
-	header.setAttribute("style",style);
-	mark_list.setAttribute("style",style);
-}
-
 function ratioSlider(empty_header) {
 	let slider = empty_header.querySelector("input[bs-durchschnitt]");
 	if (!slider) {
@@ -138,7 +96,45 @@ function updateAverage(delay) {
 			let select_states = new Array();
 			
 			for (let i = 0;i < headers.length-1; i++) {
-				dropdownMenu(headers[i], mark_lists[i]);
+				let select = header.querySelector("select[bs-durchschnitt]");
+				if (!select) {
+					select = document.createElement("select");
+					select.setAttribute("name", "mark-type");
+					select.setAttribute("bs-durchschnitt","");
+					select.setAttribute("style", "font-size:0.85em");
+					
+					// "0" - "other marks"
+					// "1" - "exam marks"
+					// "2" - "ignore"
+					for(let i = 0;i < SELECT_OPTIONS.length; i++) {
+						let opt = document.createElement("option");
+						opt.setAttribute("value", String(i));
+						opt.innerHTML = SELECT_OPTIONS[i];
+						select.appendChild(opt);
+					}
+					
+					// If the header string contains an exam string change the
+					// dropdown menu to exam marks (user usability).
+					if (checkForExamString(header.innerHTML)) {
+						select.value = "1";
+					}
+					
+					header.innerHTML += "<br>"; // Using innerHTML because <br> is an HTML tag.
+					header.appendChild(select);
+				}
+				
+				// Keeping track of the values for the calculations.
+				select_states.push(select.value);
+				
+				// If the dropdown menu is set to "ignore" make it visible to the user.
+				// (column greyed out)
+				let style = "";
+				if (select.value === "2") {
+					style = "color:#A0A0A0 !important";
+				}
+				
+				header.setAttribute("style",style);
+				mark_list.setAttribute("style",style);
 			}
 			
 			// Creating the slider to determine the ratio of exam and others

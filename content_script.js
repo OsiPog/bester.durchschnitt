@@ -18,7 +18,7 @@ function checkForExamString(string) {
 	return false;
 }
 
-function updateAverageSpan(parent_element, average) {
+function updateTextSpan(parent_element, average) {
 	let average_span = parent_element.querySelector("span[bs-durchschnitt]"); 
 	if (!average_span) {
 		average_span = document.createElement("span");
@@ -31,6 +31,48 @@ function updateAverageSpan(parent_element, average) {
 	else {
 		parent_element.removeChild(average_span);
 	}
+}
+
+function updateDropdownMenu(header, mark_list) {
+	let select = header.querySelector("select[bs-durchschnitt]");
+	if (!select) {
+		select = document.createElement("select");
+		select.setAttribute("name", "mark-type");
+		select.setAttribute("bs-durchschnitt","");
+		select.setAttribute("style", "font-size:0.85em");
+		
+		// "0" - "other marks"
+		// "1" - "exam marks"
+		// "2" - "ignore"
+		for(let i = 0;i < SELECT_OPTIONS.length; i++) {
+			let opt = document.createElement("option");
+			opt.setAttribute("value", String(i));
+			opt.innerHTML = SELECT_OPTIONS[i];
+			select.appendChild(opt);
+		}
+		
+		// If the header string contains an exam string change the
+		// dropdown menu to exam marks (user usability).
+		if (checkForExamString(header.innerHTML)) {
+			select.value = "1";
+		}
+		
+		header.innerHTML += "<br>"; // Using innerHTML because <br> is an HTML tag.
+		header.appendChild(select);
+	}
+	
+	// Keeping track of the values for the calculations.
+	select_states.push(select.value);
+	
+	// If the dropdown menu is set to "ignore" make it visible to the user.
+	// (column greyed out)
+	let style = "";
+	if (select.value === "2") {
+		style = "color:#A0A0A0 !important";
+	}
+	
+	header.setAttribute("style",style);
+	mark_list.setAttribute("style",style);
 }
 
 function updateAverage(delay) {
@@ -60,13 +102,20 @@ function updateAverage(delay) {
 		let overall_average = 0;
 		let overall_av_len = 0;
 		
+		// Going through all subject divs
 		for (let subject_div of all_subject_divs) {
 			
-			// This <p> element will only be present if the subject has no marks yet.
+			// This <p> element will only be present if the subject has no marks (yet).
+			// if it has no marks, skip it.
 			if (subject_div.querySelector("p")) continue; 
 
+
 			let subject_label = subject_div.querySelector("h2");
-	
+			
+			// The first child element of this h2 is a span with the title inside.
+			let subject_title = subject_label.children[0].innerText
+
+
 			let mark_lists = subject_div.querySelectorAll("tr>td");
 			let headers = subject_div.querySelectorAll("tr>th");
 			
@@ -74,47 +123,8 @@ function updateAverage(delay) {
 			let select_states = new Array();
 			
 			for (let i = 0;i < headers.length-1; i++) {
-				let select = headers[i].querySelector("select[bs-durchschnitt]");
-				if (!select) {
-					select = document.createElement("select");
-					select.setAttribute("name", "mark-type");
-					select.setAttribute("bs-durchschnitt","");
-					select.setAttribute("style", "font-size:0.85em");
-					
-					// "0" - "other marks"
-					// "1" - "exam marks"
-					// "2" - "ignore"
-					for(let i = 0;i < SELECT_OPTIONS.length; i++) {
-						let opt = document.createElement("option");
-						opt.setAttribute("value", String(i));
-						opt.innerHTML = SELECT_OPTIONS[i];
-						select.appendChild(opt);
-					}
-					
-					// If the header string contains an exam string change the
-					// dropdown menu to exam marks (user usability).
-					if (checkForExamString(headers[i].innerHTML)) {
-						select.value = "1";
-					}
-					
-					headers[i].innerHTML += "<br>"; // Using inner HTML because <br> is an HTML tag.
-					headers[i].appendChild(select);
-				}
-				
-				// Keeping track of the values for the calculations.
-				select_states.push(select.value);
-				
-				// If the dropdown menu is set to "ignore" make it visible to the user.
-				// (column greyed out)
-				let style = "";
-				if (select.value === "2") {
-					style = "color:#A0A0A0 !important";
-				}
-				
-				headers[i].setAttribute("style",style);
-				mark_lists[i].setAttribute("style",style);
+				dropdownMenu(headers[i], mark_lists[i]);
 			}
-
 
 			let average_exams = 0;
 			let exams_amount = 0;
@@ -166,7 +176,7 @@ function updateAverage(delay) {
 				overall_av_len++;
 			}
 			
-			updateAverageSpan(subject_label, average);
+			updateTextSpan(subject_label, average);
 			
 			
 		}
@@ -176,7 +186,7 @@ function updateAverage(delay) {
 		
 		let halfyear_selected = document.querySelector("nav>a.active");
 		
-		updateAverageSpan(halfyear_selected, overall_average);
+		updateTextSpan(halfyear_selected, overall_average);
 		
 	}, delay);
 }

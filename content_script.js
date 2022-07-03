@@ -1,120 +1,11 @@
 // This is not a very elegant way to figure out if a column is for exam marks but as
 // I don't have an API nor does the Website provide any information about it I have to
 // do it like this.
-let EXAM_STRINGS = ["KL", "Klausur", "KA", "Kl", "Klassenarbeit", "Ka"];
+const EXAM_STRINGS = ["KL", "Klausur", "KA", "Kl", "Klassenarbeit", "Ka"];
 
-let SELECT_OPTIONS = ["Sonstige", "KA/Klausur", "ignorieren"];
+const SELECT_OPTIONS = ["Sonstige", "KA/Klausur", "ignorieren"];
 
 let _last_quick_update = 0;
-
-function round(num, digits=0) {
-	return Math.round(num * 10 ** digits)/(10 ** digits);
-}
-
-// This function checks if a given string includes a string from the list EXAM_STRINGS
-function checkForExamString(string) {
-	for (let exam_string of EXAM_STRINGS) {
-		if (string.includes(exam_string)) return true;
-	}
-	return false;
-}
-
-function textSpan(parent_element, average) {
-	let average_span = parent_element.querySelector("span[bs-durchschnitt-average]"); 
-	if (!average_span) {
-		average_span = document.createElement("span");
-		average_span.setAttribute("bs-durchschnitt-average", "");
-		
-		parent_element.appendChild(average_span);
-	}
-	if (!Number.isNaN(average)) {
-		average_span.innerText = "∅" + average.toFixed(2);
-	}
-	else {
-		parent_element.removeChild(average_span);
-	}
-}
-
-function dropdownMenu(header, mark_list, select_states) {
-	let select = header.querySelector("select[bs-durchschnitt-dropdown]");
-	if (!select) {
-		select = document.createElement("select");
-		select.setAttribute("bs-durchschnitt-dropdown","");
-		
-		select.setAttribute("name", "mark-type");
-		select.setAttribute("style", "font-size:0.85em");
-		
-		// "0" - "other marks"
-		// "1" - "exam marks"
-		// "2" - "ignore"
-		for(let i = 0;i < SELECT_OPTIONS.length; i++) {
-			let opt = document.createElement("option");
-			opt.setAttribute("value", String(i));
-			opt.innerHTML = SELECT_OPTIONS[i];
-			select.appendChild(opt);
-		}
-		
-		// If the header string contains an exam string change the
-		// dropdown menu to exam marks (user usability).
-		if (checkForExamString(header.innerHTML)) {
-			select.value = "1";
-		}
-		
-		header.innerHTML += "<br>"; // Using innerHTML because <br> is an HTML tag.
-		header.appendChild(select);
-	}
-	
-	// Keeping track of the values for the calculations.
-	select_states.push(select.value);
-	
-	// If the dropdown menu is set to "ignore" make it visible to the user.
-	// (column greyed out)
-	let style = "";
-	if (select.value === "2") {
-		style = "color:#A0A0A0 !important";
-	}
-	
-	header.setAttribute("style",style);
-	mark_list.setAttribute("style",style);
-}
-
-function ratioSlider(empty_header, remove_slider = false) {
-	let slider = empty_header.querySelector("input[bs-durchschnitt-slider]");
-	let span = empty_header.querySelector("span[bs-durchschnitt-slider-span]");
-	
-	if (!slider) {
-		span = document.createElement("span");
-		span.setAttribute("bs-durchschnitt-slider-span", "");
-		
-		span.setAttribute("style", "float:right;font-size:0.9em");
-		
-		empty_header.appendChild(span);
-		
-		
-		slider = document.createElement("input");
-		slider.setAttribute("bs-durchschnitt-slider", "");
-		
-		slider.setAttribute("type", "range");
-		slider.setAttribute("min", "0");
-		slider.setAttribute("max", "100");
-		slider.setAttribute("step", "10");
-		slider.setAttribute("value", "50");
-		slider.setAttribute("style", "float:right;width:6em;margin-right:0.5em");
-		
-		empty_header.appendChild(slider);
-	}
-	
-	if (remove_slider) {
-		empty_header.removeChild(slider);
-		empty_header.removeChild(span);
-		
-		return 0; // Exam weight is 0 when there are no exams
-	}
-	
-	span.innerText = "KA/LK → " + slider.value + "/" + (100-slider.value);
-	
-	return Number(slider.value);
-}
 
 function updateAverage(delay = 0) {
 	// The timeout is set because the site has an internal loader.
@@ -130,12 +21,14 @@ function updateAverage(delay = 0) {
 			return;
 		}
 		
+		// If the current website isn't the website containing the marks. return. 
+		if (!window.location.href.includes("grades")) return;
 		
 		// Getting the view-type of the marks as this has an impact on how to get the marks
 		// from the website.
-
 		// If the checkbox "overview" isn't checked, return because it isn't supported.
 		if (!document.querySelector("div.custom-control>input").checked) return;
+		
 		
 		// Getting all subject divs
 		let all_subject_divs = document.querySelectorAll("div.card-body>div");
@@ -236,11 +129,6 @@ function updateAverage(delay = 0) {
 		
 	}, delay);
 }
-function clicked(delay = 0) {
-	if (window.location.href.includes("grades")) { 
-		updateAverage(delay);
-	}
-}
 
 // To make the interaction really seem flawlessly there has to be an event listener
 // on the body and on the card (the div the marks are located in). The update delay on
@@ -250,7 +138,7 @@ function clicked(delay = 0) {
 // click on the body. This is why this not elegant solution has to be used at the top
 // of updateAverage(delay).
 function clickedOnBody() {
-	clicked(1000);
+	updateAverage(1000);
 	let card = document.querySelector("div.card-body");
 	
 	if (!card) {
@@ -259,7 +147,7 @@ function clickedOnBody() {
 }
 
 function clickedOnCard() {
-	clicked(10);
+	updateAverage(10);
 }
 
 function createCardEventListener() {
@@ -278,4 +166,4 @@ createCardEventListener();
 // This will be execute after a site loaded.
 // This exists for the case that the current site is already the right one and no click has to 
 // be made
-clicked(1500);
+updateAverage(1500);

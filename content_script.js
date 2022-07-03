@@ -5,7 +5,9 @@ const EXAM_STRINGS = ["KL", "Klausur", "KA", "Kl", "Klassenarbeit", "Ka"];
 
 const SELECT_OPTIONS = ["Sonstige", "KA/Klausur", "ignorieren"];
 
-
+const ERRORS = {
+	"CannotGetConfig": "CannotGetConfig: The current page doesn't contain marks."
+}
 
 
 let _last_quick_update = 0;

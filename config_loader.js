@@ -7,7 +7,7 @@ if (!addon_storage) {
 }
 
 // A function to get the current config
-function get_current_config() {
+function getConfig() {
 	if (!window.location.href.includes("grades")) 
 		throw ERRORS["CannotGetConfig"];
 	
@@ -15,16 +15,15 @@ function get_current_config() {
 	let spans = document.querySelectorAll("div.card-body>h1>span>span");
 	let student_name = spans[0].innerText;
 	// removing all " " (spaces) and "\n" (line breaks).
-	let student_class = spans[1].innerText.split("\n").join("").split(" ").join("");
+	let student_class = cleanString(spans[1].innerText);
 	
 	let halfyear_small = document.querySelector("div.card-body>h1>small");
 	let student_halfyear = halfyear_small.innerText;
 	
-	if (!addon_storage[student_name]) {
-		addon_storage[student_name] = new Object();
-	}
 	
-	if (!addon_storage[student_name][student_class]) {
-		addon_storage[student_name][] = new Object();
-	}
+	let student_config = objectTree([	
+										student_name, 
+										student_class, 
+										student_halfyear
+									], addon_storage);
 }

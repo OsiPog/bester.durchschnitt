@@ -5,6 +5,9 @@ const EXAM_STRINGS = ["KL", "Klausur", "KA", "Kl", "Klassenarbeit", "Ka"];
 
 const SELECT_OPTIONS = ["Sonstige", "KA/Klausur", "ignorieren"];
 
+
+
+
 let _last_quick_update = 0;
 
 function updateAverage(delay = 0) {

@@ -12,7 +12,8 @@
 			"js": [
 				"/content_script.js",
 				"/custom_elements.js",
-				"/utils.js"
+				"/utils.js",
+				"/config_loader.js"
 			]
 		}
 	],

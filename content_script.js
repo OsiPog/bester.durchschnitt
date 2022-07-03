@@ -238,14 +238,7 @@ function updateAverage(delay = 0) {
 }
 function clicked(delay = 0) {
 	if (window.location.href.includes("grades")) { 
-		try { //for debugging purposes
-			updateAverage(delay);
-		}
-		catch (e) {
-			console.log("Error", e.stack);
-			console.log("Error", e.name);
-			console.log("Error", e.message);
-		}
+		updateAverage(delay);
 	}
 }
 

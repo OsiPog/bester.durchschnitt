@@ -11,6 +11,7 @@ function round(num, digits=0) {
 	return Math.round(num * 10 ** digits)/(10 ** digits);
 }
 
+// This function checks if a given string includes a string from the list EXAM_STRINGS
 function checkForExamString(string) {
 	for (let exam_string of EXAM_STRINGS) {
 		if (string.includes(exam_string)) return true;
@@ -77,9 +78,10 @@ function dropdownMenu(header, mark_list, select_states) {
 	mark_list.setAttribute("style",style);
 }
 
-function ratioSlider(empty_header) {
+function ratioSlider(empty_header, remove_slider = false) {
 	let slider = empty_header.querySelector("input[bs-durchschnitt-slider]");
 	let span = empty_header.querySelector("span[bs-durchschnitt-slider-span]");
+	
 	if (!slider) {
 		span = document.createElement("span");
 		span.setAttribute("bs-durchschnitt-slider-span", "");
@@ -100,6 +102,13 @@ function ratioSlider(empty_header) {
 		slider.setAttribute("style", "float:right;width:6em;margin-right:0.5em");
 		
 		empty_header.appendChild(slider);
+	}
+	
+	if (remove_slider) {
+		empty_header.removeChild(slider);
+		empty_header.removeChild(span);
+		
+		return 0; // Exam weight is 0 when there are no exams
 	}
 	
 	span.innerText = "KA/LK → " + slider.value + "/" + (100-slider.value);
@@ -159,7 +168,9 @@ function updateAverage(delay = 0) {
 			}
 			
 			// Creating the slider to determine the ratio of exam and others
-			let exam_weight = ratioSlider(headers[headers.length-1]);
+			// (But only if the subject even has exam marks, if it doesnt, delete slider)
+			// "1" is exams in the drop down menu
+			let exam_weight = ratioSlider(headers[headers.length-1], !select_states.includes("1"));
 
 			let average_exams = 0;
 			let exams_amount = 0;
@@ -197,14 +208,14 @@ function updateAverage(delay = 0) {
 
 			if (others_amount !== 0) {
 				average_others /= others_amount;
-				average += average_others;
+				average += average_others*(100 - exam_weight);
 			}
 			if (exams_amount !== 0) {
 				average_exams /= exams_amount;
-				average += average_exams;
+				average += average_exams*exam_weight;
 			}
 			
-			average /= (others_amount !== 0) + (exams_amount !== 0); // true = 1, false = 0
+			average /= 100; // All weights added up
 			
 			if (!Number.isNaN(average)) {
 				overall_average += round(average);

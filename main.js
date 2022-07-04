@@ -97,6 +97,9 @@ function updateAverage(delay = 0) {
 				mark_lists[i].setAttribute("style",style);
 			}
 			
+			// Saving every change made to the config
+			saveConfig();
+			
 			// Creating the slider to determine the ratio of exam and others
 			// (But only if the subject even has exam marks, if it doesnt, delete slider)
 			// "1" is exams in the drop down menu

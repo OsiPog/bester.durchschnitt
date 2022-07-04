@@ -14,8 +14,9 @@ function textSpan(parent_element, average) {
 	}
 }
 
-function dropdownMenu(header, mark_list, select_states) {
+function dropdownMenu(header) {
 	let select = header.querySelector("select[bs-durchschnitt-dropdown]");
+	let just_created = false;
 	if (!select) {
 		select = document.createElement("select");
 		select.setAttribute("bs-durchschnitt-dropdown","");
@@ -33,28 +34,12 @@ function dropdownMenu(header, mark_list, select_states) {
 			select.appendChild(opt);
 		}
 		
-		// If the header string contains an exam string change the
-		// dropdown menu to exam marks (user usability).
-		if (checkForExamString(header.innerHTML)) {
-			select.value = "1";
-		}
-		
 		header.innerHTML += "<br>"; // Using innerHTML because <br> is an HTML tag.
 		header.appendChild(select);
+		
+		just_created = true;
 	}
-	
-	// Keeping track of the values for the calculations.
-	select_states.push(select.value);
-	
-	// If the dropdown menu is set to "ignore" make it visible to the user.
-	// (column greyed out)
-	let style = "";
-	if (select.value === "2") {
-		style = "color:#A0A0A0 !important";
-	}
-	
-	header.setAttribute("style",style);
-	mark_list.setAttribute("style",style);
+	return [select, just_created];
 }
 
 function ratioSlider(empty_header, remove_slider = false) {

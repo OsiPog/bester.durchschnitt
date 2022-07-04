@@ -15,7 +15,6 @@ let _last_quick_update = 0;
 function updateAverage(delay = 0) {
 	// The timeout is set because the site has an internal loader.
 	setTimeout(function() {
-		
 		// To differenciate if it got clicked on the body or on the card.
 		let time_now = new Date().getTime();
 		if (delay <= 50) {
@@ -52,9 +51,11 @@ function updateAverage(delay = 0) {
 			let subject_label = subject_div.querySelector("h2");
 			
 			// The first child element of this h2 is a span with the title inside.
-			let subject_title = subject_label.children[0].innerText
+			let subject_title = cleanString(subject_label.children[0].innerText);
 
-
+			// Getting the config saved in the browser.
+			let subject_config = getConfig(subject_title);
+			
 			let mark_lists = subject_div.querySelectorAll("tr>td");
 			let headers = subject_div.querySelectorAll("tr>th");
 			
@@ -62,7 +63,38 @@ function updateAverage(delay = 0) {
 			let select_states = new Array();
 			
 			for (let i = 0;i < headers.length-1; i++) {
-				dropdownMenu(headers[i], mark_lists[i], select_states);
+				let header = headers[i];
+				let header_string = cleanString(header.innerText);
+				
+				// Getting a reference to the select element (creating it if it has to)
+				let [select, just_created] = dropdownMenu(header);
+
+				if (!subject_config[header_string]) {
+					let val = "0";
+					
+					// If the header string contains an exam string change the
+					// dropdown menu to exam marks (user usability).
+					if (checkForExamString(header_string)) {
+						val = "1";
+					}
+					subject_config[header_string] = val;
+				}
+				
+				// Only use the value in the config if the site got reloaded.
+				if (just_created) select.value = subject_config[header_string];
+				else subject_config[header_string] = select.value;
+				// Keeping track of the values for the calculations.
+				select_states.push(select.value);
+				
+				// If the dropdown menu is set to "ignore" make it visible to the user.
+				// (column greyed out)
+				let style = "";
+				if (select.value === "2") {
+					style = "color:#A0A0A0 !important";
+				}
+				
+				header.setAttribute("style",style);
+				mark_lists[i].setAttribute("style",style);
 			}
 			
 			// Creating the slider to determine the ratio of exam and others

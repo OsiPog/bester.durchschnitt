@@ -22,12 +22,12 @@ function objectTree(keys, object) {
 	for(let key of keys) {
 		level = prev_level[key];
 		if (!level) {
-			level = new Object()
+			level = new Object();
 			prev_level[key] = level;
 		}
 		
 		prev_level = level;
 	}
 	
-	return level;
+	return level; // return the last level/layer of the tree
 }

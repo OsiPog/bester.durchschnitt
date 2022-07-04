@@ -10,7 +10,7 @@
 				"https://einfache.schule/*"
 			],
 			"js": [
-				"/content_script.js",
+				"/main.js",
 				"/custom_elements.js",
 				"/utils.js",
 				"/config_loader.js"

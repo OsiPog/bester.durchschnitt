@@ -36,5 +36,11 @@
 	
 	"permissions": [
 		"storage"
-	]
+	],
+	
+	"browser_specific_settings": {
+		"gecko": {
+			"update_url": "https://example.com/updates.json"
+	 }
+}
 }

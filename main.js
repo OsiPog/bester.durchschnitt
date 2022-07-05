@@ -37,6 +37,9 @@ function updateAverage(delay = 0) {
 		// Getting all subject divs
 		let all_subject_divs = document.querySelectorAll("div.card-body>div");
 		
+		// Getting the student key, important for saving things to the config.
+		let student_key = getStudentKey();
+		
 		let overall_average = 0;
 		let overall_av_len = 0;
 		
@@ -52,9 +55,6 @@ function updateAverage(delay = 0) {
 			
 			// The first child element of this h2 is a span with the title inside.
 			let subject_title = cleanString(subject_label.children[0].innerText);
-
-			// Getting the config saved in the browser.
-			let subject_config = getConfig(subject_title);
 			
 			let mark_lists = subject_div.querySelectorAll("tr>td");
 			let headers = subject_div.querySelectorAll("tr>th");
@@ -63,31 +63,55 @@ function updateAverage(delay = 0) {
 			let select_states = new Array();
 			
 			for (let i = 0;i < headers.length-1; i++) {
+				
 				let header = headers[i];
 				let header_string = cleanString(header.innerText);
 				
+
 				// Getting a reference to the select element (creating it if it has to)
 				let [select, just_created] = dropdownMenu(header);
 
-				if (!subject_config[header_string]) {
-					let val = "0";
-					
-					// If the header string contains an exam string change the
-					// dropdown menu to exam marks (user usability).
-					if (checkForExamString(header_string)) {
-						val = "1";
-					}
-					subject_config[header_string] = val;
+				// Getting the default settings
+				let val = "0";
+				// If the header string contains an exam string change the
+				// dropdown menu to exam marks (user usability).
+				if (checkForExamString(header_string)) {
+					val = "1";
 				}
 				
-				// Only use the value in the config if the site got reloaded.
-				if (just_created) select.value = subject_config[header_string];
-				else subject_config[header_string] = select.value;
+
+				// Loading the current for the header
+				let conf = getConfig(student_key, subject_title, header_string);
+
+				// If the select menu just got created check for a config that has been
+				// set before, if there is none, just take the default value.
+				if (just_created) {
+
+					if (!conf) {
+						select.value = val;
+					}
+					else if (conf !== val) {
+						select.value = conf;
+					}
+				}
+				// If the select menu didn't just get created see if the default value is
+				// not equal to the selected value or if the config (if one exists) is not
+				// not equal to the selected value. If these conditions are true. Save a
+				// new config.
+				else if ((val !== select.value) || (conf && (conf !== select.value))) {
+					saveConfig(student_key, subject_title, header_string, select.value);
+				}
+				
+				
+				
+				
+				
 				// Keeping track of the values for the calculations.
 				select_states.push(select.value);
 				
 				// If the dropdown menu is set to "ignore" make it visible to the user.
 				// (column greyed out)
+				
 				let style = "";
 				if (select.value === "2") {
 					style = "color:#A0A0A0 !important";
@@ -97,8 +121,7 @@ function updateAverage(delay = 0) {
 				mark_lists[i].setAttribute("style",style);
 			}
 			
-			// Saving every change made to the config
-			saveConfig();
+			
 			
 			// Creating the slider to determine the ratio of exam and others
 			// (But only if the subject even has exam marks, if it doesnt, delete slider)

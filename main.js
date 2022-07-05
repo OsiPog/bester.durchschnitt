@@ -121,7 +121,11 @@ function updateAverage(delay = 10) {
 				// (column greyed out)
 				
 				let style = "";
-				if (select.value === "2") {
+				
+				if (select.value === "1") {
+					style = "color:#AA0000 !important";
+				}
+				else if (select.value === "2") {
 					style = "color:#A0A0A0 !important";
 				}
 				

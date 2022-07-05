@@ -30,7 +30,7 @@ function dropdownMenu(header) {
 		for(let i = 0;i < SELECT_OPTIONS.length; i++) {
 			let opt = document.createElement("option");
 			opt.setAttribute("value", String(i));
-			opt.innerHTML = SELECT_OPTIONS[i];
+			opt.innerText = SELECT_OPTIONS[i];
 			select.appendChild(opt);
 		}
 		

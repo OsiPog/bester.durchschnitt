@@ -12,18 +12,18 @@ const ERRORS = {
 
 let _last_quick_update = 0;
 
-function updateAverage(delay = 0) {
+function updateAverage(delay = 10) {
 	// The timeout is set because the site has an internal loader.
 	setTimeout(function() {
-		// To differenciate if it got clicked on the body or on the card.
-		let time_now = new Date().getTime();
-		if (delay <= 50) {
-			_last_quick_update = time_now;
-		}
-		// It shouldn't update twice if it got clicked on the body and on the card.
-		else if (time_now - _last_quick_update <= 1000) {
-			return;
-		}
+		// // To differenciate if it got clicked on the body or on the card.
+		// let time_now = new Date().getTime();
+		// if (delay <= 50) {
+			// _last_quick_update = time_now;
+		// }
+		// // It shouldn't update twice if it got clicked on the body and on the card.
+		// else if (time_now - _last_quick_update <= 1000) {
+			// return;
+		// }
 		
 		// If the current website isn't the website containing the marks. return. 
 		if (!window.location.href.includes("grades")) return;
@@ -31,11 +31,17 @@ function updateAverage(delay = 0) {
 		// Getting the view-type of the marks as this has an impact on how to get the marks
 		// from the website.
 		// If the checkbox "overview" isn't checked, return because it isn't supported.
-		if (!document.querySelector("div.custom-control>input").checked) return;
-		
+		let _overview_checkbox = document.querySelector("div.custom-control>input");
+		if (_overview_checkbox && (!_overview_checkbox.checked)) return;
 		
 		// Getting all subject divs
 		let all_subject_divs = document.querySelectorAll("div.card-body>div");
+		
+		// If the web app hasn't fully loaded yet try again updating after 100ms.
+		if (all_subject_divs.length === 0) {
+			updateAverage(100);
+			return;
+		}
 		
 		// Getting the student key, important for saving things to the config.
 		let student_key = getStudentKey();
@@ -45,7 +51,7 @@ function updateAverage(delay = 0) {
 		
 		// Going through all subject divs
 		for (let subject_div of all_subject_divs) {
-			
+
 			// This <p> element will only be present if the subject has no marks (yet).
 			// if it has no marks, skip it.
 			if (subject_div.querySelector("p")) continue; 
@@ -72,13 +78,13 @@ function updateAverage(delay = 0) {
 				let [select, just_created] = dropdownMenu(header);
 
 				// Getting the default settings
-				let val = "0";
+				let default_val = "0";
+				
 				// If the header string contains an exam string change the
 				// dropdown menu to exam marks (user usability).
 				if (checkForExamString(header_string)) {
-					val = "1";
+					default_val = "1";
 				}
-				
 
 				// Loading the current for the header
 				let conf = getConfig(student_key, subject_title, header_string);
@@ -86,11 +92,12 @@ function updateAverage(delay = 0) {
 				// If the select menu just got created check for a config that has been
 				// set before, if there is none, just take the default value.
 				if (just_created) {
-
-					if (!conf) {
-						select.value = val;
+					
+					// If theres no config or the default is exams change it to the default.
+					if (!conf || default_val === "1") {
+						select.value = default_val;
 					}
-					else if (conf !== val) {
+					else if (conf !== default_val) {
 						select.value = conf;
 					}
 				}
@@ -98,13 +105,14 @@ function updateAverage(delay = 0) {
 				// not equal to the selected value or if the config (if one exists) is not
 				// not equal to the selected value. If these conditions are true. Save a
 				// new config.
-				else if ((val !== select.value) || (conf && (conf !== select.value))) {
+				else if ((default_val !== select.value) || (conf && (conf !== select.value))) {
 					saveConfig(student_key, subject_title, header_string, select.value);
 				}
 				
-				
-				
-				
+				// For the case that a config is obsolete and would just waste storage.
+				else if ((default_val === select.value) && conf) {
+					deleteConfig(student_key, subject_title, header_string);
+				}
 				
 				// Keeping track of the values for the calculations.
 				select_states.push(select.value);
@@ -126,8 +134,35 @@ function updateAverage(delay = 0) {
 			// Creating the slider to determine the ratio of exam and others
 			// (But only if the subject even has exam marks, if it doesnt, delete slider)
 			// "1" is exams in the drop down menu
-			let exam_weight = ratioSlider(headers[headers.length-1], !select_states.includes("1"));
+			
+			let only_exams = !select_states.includes("0");
+			let only_others = !select_states.includes("1");
+			let exam_weight;
+			
+			let [slider, just_created] = ratioSlider(headers[headers.length-1], (only_exams || only_others));
+			
+			if (!(only_exams || only_others)) {
+				let conf = getConfig(student_key, subject_title, "slider");
 
+				if (just_created && conf) {
+					slider.value = conf;
+				}
+				else if (!conf && (slider.value !== "50")) {
+					saveConfig(student_key, subject_title, "slider", slider.value);
+				}
+				else if (conf && (slider.value === "50")){
+					deleteConfig(student_key, subject_title, "slider");
+				}
+				
+				exam_weight = Number(slider.value);
+			}
+			else if (only_exams) {
+				exam_weight = 100;
+			}
+			else if (only_others) {
+				exam_weight = 0;
+			}
+			
 			let average_exams = 0;
 			let exams_amount = 0;
 			
@@ -192,41 +227,11 @@ function updateAverage(delay = 0) {
 		
 	}, delay);
 }
-
-// To make the interaction really seem flawlessly there has to be an event listener
-// on the body and on the card (the div the marks are located in). The update delay on
-// body needs to be quite long so that the website has time to load its content. Yet
-// if the user clicks on the card the response should come quickly so that it feels
-// nice and responive. But if the user clicks on the card, they automatically also
-// click on the body. This is why this not elegant solution has to be used at the top
-// of updateAverage(delay).
-function clickedOnBody() {
-	updateAverage(1000);
-	let card = document.querySelector("div.card-body");
-	
-	if (!card) {
-		createCardEventListener();
-	}
-}
-
-function clickedOnCard() {
-	updateAverage(10);
-}
-
-function createCardEventListener() {
-	setTimeout(function() {
-		if (window.location.href.includes("grades")) {
-			let card = document.querySelector("div.card-body");
-			card.addEventListener("click", clickedOnCard);
-		}
-	}, 1000)
-}
-
+console.log("Add-On loaded");
 // Add click event listeners
-document.body.addEventListener("click", clickedOnBody);
-createCardEventListener();
+document.body.addEventListener("click", updateAverage);
 
 // This will be execute after a site loaded.
 // This exists for the case that the current site is already the right one and no click has to 
 // be made
-updateAverage(1500);
+updateAverage();

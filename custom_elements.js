@@ -45,6 +45,7 @@ function dropdownMenu(header) {
 function ratioSlider(empty_header, remove_slider = false) {
 	let slider = empty_header.querySelector("input[bs-durchschnitt-slider]");
 	let span = empty_header.querySelector("span[bs-durchschnitt-slider-span]");
+	let just_created = false;
 	
 	if (!slider) {
 		span = document.createElement("span");
@@ -59,23 +60,25 @@ function ratioSlider(empty_header, remove_slider = false) {
 		slider.setAttribute("bs-durchschnitt-slider", "");
 		
 		slider.setAttribute("type", "range");
-		slider.setAttribute("min", "0");
-		slider.setAttribute("max", "100");
+		slider.setAttribute("min", "20");
+		slider.setAttribute("max", "80");
 		slider.setAttribute("step", "10");
 		slider.setAttribute("value", "50");
 		slider.setAttribute("style", "float:right;width:6em;margin-right:0.5em");
 		
 		empty_header.appendChild(slider);
+		
+		just_created = true;
 	}
 	
 	if (remove_slider) {
 		empty_header.removeChild(slider);
 		empty_header.removeChild(span);
 		
-		return 0; // Exam weight is 0 when there are no exams
+		return [undefined, undefined];
 	}
 	
 	span.innerText = "KA/LK → " + slider.value + "/" + (100-slider.value);
 	
-	return Number(slider.value);
+	return [slider, just_created];
 }

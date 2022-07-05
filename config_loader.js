@@ -24,3 +24,7 @@ function getConfig(student_key, subject, key) {
 function saveConfig(student_key, subject, key, value) {
 	localStorage.setItem(student_key + subject + key, value);
 }
+
+function deleteConfig(student_key, subject, key) {
+	localStorage.removeItem(student_key + subject + key);
+}

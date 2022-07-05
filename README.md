@@ -6,7 +6,7 @@
 
 *Dieses Add-On ist nicht offiziell und steht in keinem direkten Kontakt zu beste.schule.*
 
-![](//i.imgur.com/ddw5TrS.png)
+![](https://i.imgur.com/ddw5TrS.png)
 
 ## Was macht das Add-On?
 

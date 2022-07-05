@@ -40,7 +40,7 @@
 	
 	"browser_specific_settings": {
 		"gecko": {
-			"update_url": "https://example.com/updates.json"
+			"update_url": "https://osipog.github.io/bester.durchschnitt/updates.json"
 	 }
 }
 }

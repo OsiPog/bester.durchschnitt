@@ -38,11 +38,13 @@ Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notensei
 
 ## Das Add-On zum Browser hinzufügen
 
-Das Add-On wurde in Firefox und Chromium-basierenden Browsern getestet.
+Das Add-On wurde in Firefox und Chromium-basierenden Browsern getestet. Ein Release auf Safari ist auch geplant.
 
 - **Firefox:** https://github.com/OsiPog/bester.durchschnitt/releases/download/1.3.0/bester-durchschnitt-firefox.xpi
 
 - **Chromium:** https://chrome.google.com/webstore/detail/besterdurchschnitt/fgodlbapghefmkgcciefhogiedgjdpli
+
+- **Safari:** (Coming Soon)
 
 ## Dankesagungen
 

@@ -9,7 +9,12 @@
 				"https://beste.schule/*",
 				"https://einfache.schule/*"
 			],
-			"js": ["/content_script.js"]
+			"js": [
+				"/main.js",
+				"/utils.js",
+				"/config_loader.js",
+				"/custom_elements.js"
+			]
 		}
 	],
 	

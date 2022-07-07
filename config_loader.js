@@ -48,20 +48,20 @@ function getStudentKey() {
 }
 
 function getConfig(student_key, subject, key) {
-	let conf = _decryptConfig(student_key);
+	let conf = _decryptConfig();
 	return conf[cleanString(student_key + subject + key)];
 }
 
 function saveConfig(student_key, subject, key, value) {
-	let conf = _decryptConfig(student_key);
+	let conf = _decryptConfig();
 	
 	conf[cleanString(student_key + subject + key)] = value;
 	
-	_encryptConfig(conf, student_key);
+	_encryptConfig(conf);
 }
 
 function deleteConfig(student_key, subject, key) {
-	let conf = _decryptConfig(student_key);
+	let conf = _decryptConfig();
 	delete conf[cleanString(student_key + subject + key)];
-	_encryptConfig(conf, student_key);
+	_encryptConfig(conf);
 }

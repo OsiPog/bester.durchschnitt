@@ -26,13 +26,14 @@ Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notensei
 **Geplante Funktionen**
 
 - Auswahl ob bei "Komma 5" mathematisch auf- oder abgerundet werden soll
+- Button zum zurücksetzen der Einstellungen
 - temporäres hinzufügen und entfernen von Noten um zu sehen, wie sich der Durchschnitt ändert
 
 
 
 **bekannte Bugs**
 
-[momentan keine]
+- Einstellungen bleiben zum Teil die selben, obwohl Halbjahr gewechselt wurde
 
 
 

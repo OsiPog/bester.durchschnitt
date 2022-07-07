@@ -5,25 +5,9 @@ const EXAM_STRINGS = ["KL", "Klausur", "KA", "Kl", "Klassenarbeit", "Ka"];
 
 const SELECT_OPTIONS = ["Sonstige", "KA/Klausur", "ignorieren"];
 
-const ERRORS = {
-	"CannotGetConfig": "CannotGetConfig: The current page doesn't contain marks."
-}
-
-
-let _last_quick_update = 0;
-
 function updateAverage(delay = 10) {
 	// The timeout is set because the site has an internal loader.
 	setTimeout(function() {
-		// // To differenciate if it got clicked on the body or on the card.
-		// let time_now = new Date().getTime();
-		// if (delay <= 50) {
-			// _last_quick_update = time_now;
-		// }
-		// // It shouldn't update twice if it got clicked on the body and on the card.
-		// else if (time_now - _last_quick_update <= 1000) {
-			// return;
-		// }
 		
 		// If the current website isn't the website containing the marks. return. 
 		if (!window.location.href.includes("grades")) return;
@@ -93,8 +77,8 @@ function updateAverage(delay = 10) {
 				// set before, if there is none, just take the default value.
 				if (just_created) {
 					
-					// If theres no config or the default is exams change it to the default.
-					if (!conf || default_val === "1") {
+					// If theres no config
+					if (!conf) {
 						select.value = default_val;
 					}
 					else if (conf !== default_val) {

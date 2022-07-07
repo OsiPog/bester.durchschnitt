@@ -142,6 +142,7 @@ function updateAverage(delay = 10) {
 			let only_exams = !select_states.includes("0");
 			let only_others = !select_states.includes("1");
 			let exam_weight;
+
 			let conf = getConfig(student_key, subject_title, "slider");
 			
 			let [slider, span, just_created] = ratioSlider(headers[headers.length-1], (only_exams || only_others), conf);

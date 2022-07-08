@@ -30,7 +30,7 @@ function dropdownMenu(header) {
 		for(let i = 0;i < SELECT_OPTIONS.length; i++) {
 			let opt = document.createElement("option");
 			opt.setAttribute("value", String(i));
-			opt.innerHTML = SELECT_OPTIONS[i];
+			opt.innerText = SELECT_OPTIONS[i];
 			select.appendChild(opt);
 		}
 		
@@ -42,10 +42,12 @@ function dropdownMenu(header) {
 	return [select, just_created];
 }
 
-function ratioSlider(empty_header, remove_slider = false) {
+function ratioSlider(empty_header, remove_slider = false, val = undefined) {
 	let slider = empty_header.querySelector("input[bs-durchschnitt-slider]");
 	let span = empty_header.querySelector("span[bs-durchschnitt-slider-span]");
 	let just_created = false;
+	
+	if (!val) val = "50";
 	
 	if (!slider) {
 		span = document.createElement("span");
@@ -63,7 +65,7 @@ function ratioSlider(empty_header, remove_slider = false) {
 		slider.setAttribute("min", "20");
 		slider.setAttribute("max", "80");
 		slider.setAttribute("step", "10");
-		slider.setAttribute("value", "50");
+		slider.setAttribute("value", val);
 		slider.setAttribute("style", "float:right;width:6em;margin-right:0.5em");
 		
 		empty_header.appendChild(slider);

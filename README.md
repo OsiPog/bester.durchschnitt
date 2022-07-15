@@ -8,11 +8,24 @@
 
 ![](https://i.imgur.com/ddw5TrS.png)
 
-## Was macht das Add-On?
+## Inhalt
+
+1. [Über das Add-On](#Über das Add-On)
+   - [Funktionen](#Funktionen)
+   - [Geplante Funktionen](#Geplante Funktionen)
+   - [bekannte Bugs](#bekannte Bugs)
+
+2. [Das Add-On zum Browser hinzufügen](#Das Add-On zum Browser hinzufügen)
+
+3. [Dankesagungen](#Dankesagungen)
+
+
+
+## Über das Add-On
 
 Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notenseite von https://beste.schule/ an. Es berechnet außerdem noch den Gesamtdurchschnitt des Halbjahres mit den gerundeten Zeugnisnoten der einzelnen Fächer. Leider wird die Ansichtsmethode "Details" nicht unterstützt.
 
-**Funktionen**
+##### Funktionen
 
 - Durchschnitt für jedes Fach
 - Gesamtdurchschnitt eines Halbjahres
@@ -23,7 +36,7 @@ Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notensei
 
 
 
-**Geplante Funktionen**
+##### Geplante Funktionen
 
 - Auswahl ob bei "Komma 5" mathematisch auf- oder abgerundet werden soll
 - Button zum zurücksetzen der Einstellungen
@@ -31,9 +44,10 @@ Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notensei
 
 
 
-**bekannte Bugs**
+##### bekannte Bugs
 
 - Einstellungen bleiben zum Teil die selben, obwohl Halbjahr gewechselt wurde
+- Beim Ignorieren aller Noten in einem Fach entsteht ein Durchschnitt von 0.00, was den Gesamtdurchschnitt verfälscht
 
 
 

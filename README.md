@@ -10,7 +10,16 @@
 
 ## Inhalt
 
-[TOC]
+1. [Über das Add-On](#Über%20das%20Add-On)
+   - [Funktionen](#Funktionen)
+   
+   - [Geplante Funktionen](#Geplante%20Funktionen)
+   
+   - [Bekannte Bugs](#Bekannte%20Bugs)
+   
+2. [Das Add-On zum Browser hinzufügen](#Das%20Add-On%20zum%20Browser%20hinzufügen)
+
+3. [Dankesagungen](#Dankesagungen)
 
 
 

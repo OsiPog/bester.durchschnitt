@@ -2,31 +2,109 @@
 <html>
 	<head>
 		<style>
-		h3 {
-			text-align: center;
-		}
-		p {
-			margin: 0.5em;
-			text-align: center;
-		}
-		div {
-			text-align: center;
-		}
+@font-face {
+	font-family: Nunito;
+	src: url(font/Nunito-Regular.ttf);
+}
+
+:root {
+	font-family: "Nunito";
+	font-size: 12px;
+}
+
+body {
+	margin: 0.5em;
+	background-color: rgb(255, 255, 255);
+}
+
+a {
+	color: rgb(255, 255, 255);
+	text-decoration: none;
+}
+
+/* For some reason the hr element isn't displayed in the Firefox add-on popup. */
+.hline {
+	height: 0.1rem;
+	background-color: rgb(50,50,50);
+	border-radius: 0.25rem;
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.header {
+	display: inline-block;
+}
+
+.icon {
+	vertical-align: text-bottom;
+	max-height: 3rem;
+}
+
+.title {
+	line-height: inherit;
+	font-size: 2rem;
+	margin-left: 0.25rem;
+}
+
+.subtitle {
+	font-size: 1.2rem;
+	text-color: rgb(50, 50, 50);
+	margin-left: 0.3rem;
+	margin-top: 0.5rem;
+}
+
+.button {
+	font-family: inherit;
+
+	background-color: rgb(50, 150, 225);
+	border-radius: 0.5rem;
+	margin-top: 0.25em;
+	margin-bottom: 0.25em;
+	
+	font-size: 1.5rem;
+	line-height: 3rem;
+	text-align: center;
+	
+	
+}
+.button:hover {
+	background-color: rgb(40, 130, 200);
+}
+.button:active {
+	background-color: rgb(20, 110, 180);
+}
+
 		</style>
 	</head>
 	
 	<body>
-		<h3><span><img src="icon256.png" style="max-height: 3em"></span><br>bester.durchschnitt</h3>
-		<p>Berechnung des Notendurchschnitts <br> 
-		f&uuml;r  <a href="https://beste.schule/">https://beste.schule/<a/><br>
-		<br>
-		</p>
-		<div>Bei Fragen, Problemen, gefundenen Bugs oder <br>
-		nicht automatischer Auswahl von KA/Klausur:</div>
-		<ul>
-		<li>Schreibe mir eine Email: <a href= "mailto:osibluber@protonmail.com">osibluber@protonmail.com</a></li>
-		<li>&Ouml;ffne ein Issue auf GitHub: <br><a href="https://github.com/OsiPog/bester.durchschnitt/issues">https://github.com/OsiPog/bester.durchschnitt/issues</li></a>
-		</ul>
-		<div>Nur mit Feedback kann sich dieses Add-On verbessern!</div>
+		<div class="header">
+			<img class="icon" src="icon/icon256.png"/>
+			<span class="title">
+				bester.durchschnitt
+			</span>
+			<br/>
+			<span class="subtitle">
+				Berechnung des Notendurchschnitts f&uuml;r beste.schule
+			</span>
+		</div>
+		
+		<div class="hline"></div>
+		
+		<a href="https://beste.schule/students/">
+			<div class="button">beste.schule &ouml;ffnen</div>
+		</a>
+		
+		<div class="hline"></div>
+		
+		<div class="subtitle">Bei Fragen und Problemen:</div>
+		
+		<a href="mailto:osibluber@protonmail.com">
+			<div class="button">osibluber@protonmail.com</div>
+		</a>
+		
+		<a href="https://github.com/OsiPog/bester.durchschnitt/issues">
+			<div class="button">GitHub Issue</div>
+		</a>
 	</body>
 </html>

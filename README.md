@@ -10,14 +10,14 @@
 
 ## Inhalt
 
-1. [Über das Add-On](#Über%20das%20Add-On)
+1. [Über das Add-On](#Über-das-Add-On)
    - [Funktionen](#Funktionen)
    
-   - [Geplante Funktionen](#Geplante%20Funktionen)
+   - [Geplante Funktionen](#Geplante-Funktionen)
    
-   - [Bekannte Bugs](#Bekannte%20Bugs)
+   - [Bekannte Bugs](#Bekannte-Bugs)
    
-2. [Das Add-On zum Browser hinzufügen](#Das%20Add-On%20zum%20Browser%20hinzufügen)
+2. [Das Add-On zum Browser hinzufügen](#Das-Add-On-zum-Browser-hinzufügen)
 
 3. [Dankesagungen](#Dankesagungen)
 

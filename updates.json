@@ -3,6 +3,10 @@
 		"{e845b9c5-a776-4645-ae47-81a86db6d742}": {
 			"updates": [
 				{
+					"version": "1.3.3",
+					"update_link": "https://github.com/OsiPog/bester.durchschnitt/releases/download/1.3.3/bester-durchschnitt-firefox.xpi"
+				},
+				{
 					"version": "1.3.2",
 					"update_link": "https://github.com/OsiPog/bester.durchschnitt/releases/download/1.3.2/bester-durchschnitt-firefox.xpi"
 				},

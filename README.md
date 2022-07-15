@@ -10,15 +10,15 @@
 
 ## Inhalt
 
-1. ["Über das Add-On"]("#Über das Add-On")
+1. [Über%20das%20Add-On](#Über%20das%20Add-On)
 
    - [Funktionen](#Funktionen)
 
-   - [Geplante Funktionen](#Geplante Funktionen)
+   - [Geplante%20Funktionen](#Geplante%20Funktionen)
 
-   - [bekannte Bugs](#bekannte Bugs)
+   - [Bekannte%20Bugs](#Bekannte%20Bugs)
 
-2. [Das Add-On zum Browser hinzufügen](#Das Add-On zum Browser hinzufügen)
+2. [Das%20Add-On%20zum%20Browser%20hinzufügen](#Das%20Add-On%20zum%20Browser%20hinzufügen)
 
 3. [Dankesagungen](#Dankesagungen)
 
@@ -47,7 +47,7 @@ Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notensei
 
 
 
-##### bekannte Bugs
+##### Bekannte Bugs
 
 - Einstellungen bleiben zum Teil die selben, obwohl Halbjahr gewechselt wurde
 - Beim Ignorieren aller Noten in einem Fach entsteht ein Durchschnitt von 0.00, was den Gesamtdurchschnitt verfälscht

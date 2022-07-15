@@ -53,7 +53,7 @@ Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notensei
 
 
 
-## Installation
+## Das Add-On zum Browser hinzufügen
 
 Das Add-On wurde in Firefox und Chromium-basierenden Browsern getestet. Ein Release auf Safari ist auch geplant.
 

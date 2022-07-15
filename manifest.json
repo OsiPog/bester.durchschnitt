@@ -10,10 +10,10 @@
 				"https://einfache.schule/*"
 			],
 			"js": [
-				"/main.js",
-				"/utils.js",
-				"/config_loader.js",
-				"/custom_elements.js"
+				"script/main.js",
+				"script/utils.js",
+				"script/config_loader.js",
+				"script/custom_elements.js"
 			]
 		}
 	],
@@ -21,16 +21,16 @@
 	"action": {
 		"browser_style": true,
 		"default_icon":{
-			"48": "/icon48.png"
+			"48": "icon/icon48.png"
 		},
 		"default_title": "bester.durchschnitt",
 		"default_popup": "/popup.html"
 	},
 	
 	"icons": {
-		"16": "icon16.png",
-		"48": "icon48.png",
-		"128": "icon128.png",
-		"256": "icon256.png"
+		"16": "icon/icon16.png",
+		"48": "icon/icon48.png",
+		"128": "icon/icon128.png",
+		"256": "icon/icon256.png"
 	}
 }

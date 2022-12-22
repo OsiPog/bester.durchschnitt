@@ -1,6 +1,6 @@
 [Deutsche Version dieser Seite](https://github.com/OsiPog/bester.durchschnitt-browser-addon/blob/master/README_DE.md)
 
-### This add-on is discontinued, an app with the same features is currently developed: https://github.com/OsiPog/bester.durchschnitt
+### This add-on is discontinued. An app with the same features is currently being developed: https://github.com/OsiPog/bester.durchschnitt-app
 
 
 
@@ -36,14 +36,16 @@ This add-on calculates and displays the averages of every subject on the "grades
 
 The averages are calculated as followed:
 
-$$ \text{Average} = {{\text{Exam: Weight} * {{\text{Exam: Sum}}\over{\text{Exam: Count}}} + \text{Other: Weight} * {{\text{Other: Sum}}\over{\text{Other: Count}}}}\over{100}} $$
+$$
+\text{Average} = \frac{\text{Exam: Weight} * \frac{\text{Exam: Sum}}{\text{Exam: Count}} + \text{Other: Weight} * \frac{\text{Other: Sum}}{\text{Other: Count}}}{100}
+$$
 
 
 #### Features
 
 - Average for every subject
 - Overall average for the whole term
-- Selection for every mark-type: **"Exam", "Other" **or **"ignore"**
+- Selection for every mark-type: **"Exam", "Other"** or **"ignore"**
   - The add-on automatically recognizes which column should be in the category "Exam" (If this isn't the case send me an email: osibluber@protonmail.com or open an issue here)
 - custom weighting for every subject
 - Auto-save of settings (mark-type, weights)

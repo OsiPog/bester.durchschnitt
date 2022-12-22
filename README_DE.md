@@ -1,4 +1,4 @@
-### Dieses Add-On wird nicht mehr weiterentwickelt, eine App mit den gleichen Funktionen befindet sich in Entwicklung: https://github.com/OsiPog/bester.durchschnitt
+### Dieses Add-On wird nicht mehr weiterentwickelt, eine App mit den gleichen Funktionen befindet sich in Entwicklung: https://github.com/OsiPog/bester.durchschnitt-app
 
 
 
@@ -34,7 +34,9 @@ Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notensei
 
 Die Durchschnitte werden wie folgt ausgerechnet:
 
-$$ \text{Durchschnitt} = {{\text{KA/Klausur: Wichtung} * {{\text{KA/Klausur: Summe}}\over{\text{KA/Klausur: Anzahl}}} + \text{Sonstige: Wichtung} * {{\text{Sonstige: Summe}}\over\text{Sonstige: Anzahl}}}\over{100}} $$
+$$
+\text{Durchschnitt} = \frac{\text{KA/Klausur: Weight} * \frac{\text{KA/Klausur: Summe}}{\text{KA/Klausur: Anzahl}} + \text{Sonstige: Weight} * \frac{\text{Sonstige: Summe}}{\text{Sonstige: Anzahl}}}{100}
+$$
 
 #### Funktionen
 

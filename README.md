@@ -35,6 +35,7 @@ The add-on is tested on Firefox and Chromium-based browsers.
 This add-on calculates and displays the averages of every subject on the "grades"-page of https://beste.schule/. Additionally it calculates the overall average for the whole term with the rounded averages of the subjects. The view-type "Details" is not supported.
 
 The averages are calculated as followed:
+
 $$ \text{Average} = {{\text{Exam: Weight} * {{\text{Exam: Sum}}\over{\text{Exam: Count}}} + \text{Other: Weight} * {{\text{Other: Sum}}\over{\text{Other: Count}}}}\over{100}} $$
 
 

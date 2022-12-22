@@ -1,66 +1,70 @@
-*This repo is written in German (except the code) as the website this extension is made for.*
+[Deutsche Version dieser Seite](https://github.com/OsiPog/bester.durchschnitt-browser-addon/blob/master/README_DE.md)
 
-# bester.durchschnitt
+### This add-on is discontinued, an app with the same features is currently developed: https://github.com/OsiPog/bester.durchschnitt
 
-**Ein Add-On für https://beste.schule/**
 
-*Dieses Add-On ist nicht offiziell und steht in keinem direkten Kontakt zu beste.schule.*
+
+# bester.durchschnitt (Browser Add-On)
+
+**A browser add-on for https://beste.schule/**
+
+*This add-on is not official and does not stand in direct contact to Schulverwalter*
 
 ![](https://i.imgur.com/ddw5TrS.png)
 
-## Inhalt
+## Table of Contents
 
-1. [Über das Add-On](#Über-das-Add-On)
-   - [Funktionen](#Funktionen)
+1. [Installation](#Installation)
+2. [About](#About)
+   - [Features](#Features)
    
-   - [Geplante Funktionen](#Geplante-Funktionen)
+   - [Missing Features](#Missing-Features)
    
-   - [Bekannte Bugs](#Bekannte-Bugs)
-   
-2. [Installation](#Installation)
-
-3. [Dankesagungen](#Dankesagungen)
-
-
-
-## Über das Add-On
-
-Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notenseite von https://beste.schule/ an. Es berechnet außerdem noch den Gesamtdurchschnitt des Halbjahres mit den gerundeten Zeugnisnoten der einzelnen Fächer. Leider wird die Ansichtsmethode "Details" nicht unterstützt.
-
-#### Funktionen
-
-- Durchschnitt für jedes Fach
-- Gesamtdurchschnitt eines Halbjahres
-- Auswahl für jede Notenspalte: Klassenarbeit/Klausur, Sonstige Note oder ignorieren
-  - Es wird automatisch erkannt, was eine KA/Klausur ist. Falls das nicht der Fall ist, lasst es mich wissen (Schreibt mir eine Email: osibluber@protonmail.com oder öffnet hier ein Issue)
-- benutzerdefinierte Auswahl der Wichtungen für jedes Fach
-- Automatisches Speichern der benutzerdefinierten Einstellungen (Auswahl der Notenart, Wichtungen)
-
-
-
-#### Geplante Funktionen
-
-- Auswahl ob bei "Komma 5" mathematisch auf- oder abgerundet werden soll
-- Button zum zurücksetzen der Einstellungen
-- temporäres hinzufügen und entfernen von Noten um zu sehen, wie sich der Durchschnitt ändert
-
-
-
-#### Bekannte Bugs
-
-- Einstellungen bleiben zum Teil die selben, obwohl Halbjahr gewechselt wurde
-- Beim Ignorieren aller Noten in einem Fach entsteht ein Durchschnitt von 0.00, was den Gesamtdurchschnitt verfälscht
-
-
+   - [Known Bugs](#Known-Bugs)
+3. [Special Thanks](#Special-Thanks)
 
 ## Installation
 
-Das Add-On wurde in Firefox und Chromium-basierenden Browsern getestet.
+The add-on is tested on Firefox and Chromium-based browsers.
 
 - **Firefox:** https://github.com/OsiPog/bester.durchschnitt/releases/download/1.3.2/bester-durchschnitt-firefox.xpi
 - **Chromium:** https://chrome.google.com/webstore/detail/besterdurchschnitt/fgodlbapghefmkgcciefhogiedgjdpli
 
-## Dankesagungen
+## About
 
-- :heart: Danke an **Iqel** für die Bereitstellung seines beste.schule Accounts, da dieser viel mehr Edge-cases geboten hatte als mein eigener.
+This add-on calculates and displays the averages of every subject on the "grades"-page of https://beste.schule/. Additionally it calculates the overall average for the whole term with the rounded averages of the subjects. The view-type "Details" is not supported.
+
+The averages are calculated as followed:
+$$
+\text{Average} = \frac{\text{Exam: Weight} * \frac{\text{Exam: Sum}}{\text{Exam: Count}} + \text{Other: Weight} * \frac{\text{Other: Sum}}{\text{Other: Count}}}{100}
+$$
+
+
+#### Features
+
+- Average for every subject
+- Overall average for the whole term
+- Selection for every mark-type: **"Exam", "Other" **or **"ignore"**
+  - The add-on automatically recognizes which column should be in the category "Exam" (If this isn't the case send me an email: osibluber@protonmail.com or open an issue here)
+- custom weighting for every subject
+- Auto-save of settings (mark-type, weights)
+
+
+
+#### Missing Features
+
+- Option to choose if the average is being rounded up or down on "*.5*" (Is only important while calculating the overall average)
+- Button to reset all Settings
+- temporary adding/removing of marks to see how the average changes
+
+
+
+#### Known Bugs
+
+- Settings stay the same even though another term got selected
+- While ignoring all marks of a subject an average of 0.00 is created which messes up the overall average
+
+## Special Thanks
+
+- :heart: Thanks to **Iqel** for lending me his beste.schule Account because it had way more edge cases than mine.
 

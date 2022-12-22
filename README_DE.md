@@ -1,4 +1,4 @@
-### Dieses Add-On wird nicht mehr weiterentwickelt, eine App mit den gleichen Funktionen befindet sich in Entwicklung: https://github.com/OsiPog/bester.durchschnitt-app
+### Dieses Add-On wird nicht mehr weiterentwickelt. Eine App mit den gleichen Funktionen befindet sich in Entwicklung: https://github.com/OsiPog/bester-durchschnitt-app
 
 
 

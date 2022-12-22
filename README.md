@@ -1,6 +1,6 @@
 [Deutsche Version dieser Seite](https://github.com/OsiPog/bester.durchschnitt-browser-addon/blob/master/README_DE.md)
 
-### This add-on is discontinued. An app with the same features is currently being developed: https://github.com/OsiPog/bester.durchschnitt-app
+### This add-on is discontinued. An app with the same features is currently being developed: https://github.com/OsiPog/bester-durchschnitt-app
 
 
 

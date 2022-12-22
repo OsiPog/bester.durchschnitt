@@ -33,7 +33,7 @@ Das Add-On wurde in Firefox und Chromium-basierenden Browsern getestet.
 Dieses Add-On berechnet und zeigt den Durchschnitt jedes Faches auf der Notenseite von https://beste.schule/ an. Es berechnet außerdem noch den Gesamtdurchschnitt des Halbjahres mit den gerundeten Zeugnisnoten der einzelnen Fächer. Leider wird die Ansichtsmethode "Details" nicht unterstützt.
 
 Die Durchschnitte werden wie folgt ausgerechnet:
-$$ \text{Durchschnitt} = \frac{\text{KA/Klausur: Wichtung} * \frac{\text{KA/Klausur: Summe}}{\text{KA/Klausur: Anzahl}} + \text{Sonstige: Wichtung} * \frac{\text{Sonstige: Summe}}{\text{Sonstige: Anzahl}}}{100} $$
+$$ \text{Durchschnitt} = {{\text{KA/Klausur: Wichtung} * \frac{\text{KA/Klausur: Summe}}{\text{KA/Klausur: Anzahl}} + \text{Sonstige: Wichtung} * \frac{\text{Sonstige: Summe}}{\text{Sonstige: Anzahl}}}\over{100}} $$
 
 #### Funktionen
 
